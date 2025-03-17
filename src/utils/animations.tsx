@@ -73,3 +73,41 @@ export const AnimatedText = ({
     children
   );
 };
+
+export const ParallaxElement: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+  speed?: number; // Positive values move element down, negative values move up
+}> = ({ children, className = '', speed = -0.2 }) => {
+  const [offset, setOffset] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!ref.current) return;
+      const elementTop = ref.current.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
+      const distanceFromCenter = elementTop - windowHeight / 2;
+      setOffset(distanceFromCenter * speed);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initialize on mount
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [speed]);
+  
+  return (
+    <div 
+      ref={ref}
+      className={`${className} relative overflow-hidden`}
+    >
+      <div 
+        style={{ transform: `translateY(${offset}px)` }}
+        className="transition-transform duration-300 ease-out"
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
