@@ -1,6 +1,8 @@
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AnimatedElement, AnimatedText } from '@/utils/animations';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const testimonials = [
   {
@@ -33,24 +35,15 @@ const testimonials = [
   },
 ];
 
+const effectivenessStats = [
+  { id: 1, label: 'mężczyzn potwierdza poprawę erekcji', percentage: 95 },
+  { id: 2, label: 'odczuło zwiększone libido', percentage: 89 },
+  { id: 3, label: 'deklaruje większą satysfakcję ze współżycia', percentage: 93 },
+];
+
 const TestimonialSection = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const slideRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
   
-  const nextSlide = () => {
-    setActiveIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-  };
-
-  const prevSlide = () => {
-    setActiveIndex((prevIndex) => (prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1));
-  };
-  
-  useEffect(() => {
-    if (slideRef.current) {
-      slideRef.current.style.transform = `translateX(-${activeIndex * 100}%)`;
-    }
-  }, [activeIndex]);
-
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }).map((_, i) => (
       <svg
@@ -64,6 +57,28 @@ const TestimonialSection = () => {
       </svg>
     ));
   };
+
+  const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonials[0] }) => (
+    <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 h-full flex flex-col">
+      <div className="flex items-center space-x-1 mb-4">
+        {renderStars(testimonial.rating)}
+      </div>
+      
+      <blockquote className="text-lg text-gray-800 leading-relaxed mb-6 flex-grow">
+        "{testimonial.quote}"
+      </blockquote>
+      
+      <div className="flex items-center mt-auto">
+        <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-brand-red font-bold text-lg">
+          {testimonial.name.charAt(0)}
+        </div>
+        <div className="ml-4">
+          <p className="font-semibold text-gray-900">{testimonial.name}</p>
+          <p className="text-gray-500 text-sm">{testimonial.age}</p>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <section 
@@ -95,153 +110,66 @@ const TestimonialSection = () => {
           </AnimatedText>
         </div>
         
-        <div className="max-w-4xl mx-auto">
-          <AnimatedElement animation="fade-in" delay={500} className="relative">
-            {/* Testimonial slider */}
-            <div className="overflow-hidden rounded-2xl shadow-xl">
-              <div 
-                ref={slideRef}
-                className="flex transition-transform duration-500 ease-out"
-                style={{ width: `${testimonials.length * 100}%` }}
-              >
-                {testimonials.map((testimonial) => (
-                  <div 
-                    key={testimonial.id} 
-                    className="w-full flex-shrink-0 bg-white p-8 sm:p-12 relative"
-                    style={{ width: `${100 / testimonials.length}%` }}
-                  >
-                    {/* Decorative quote icon */}
-                    <div className="absolute -top-2 -left-2 text-red-100 opacity-30">
-                      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9.13456 9H5.37685C4.95344 9 4.71138 8.5 5.00344 8.2C6.1 7 7.5 5 7.5 3.5C7.5 2.67 8.17 2 9 2C9.83 2 10.5 2.67 10.5 3.5C10.5 4.6 10.05 5.7 9.27 6.5C9.0105 6.77224 8.83949 7.1084 8.77066 7.46909L9.13456 9Z" fill="currentColor"/>
-                        <path d="M19.1346 9H15.3769C14.9534 9 14.7114 8.5 15.0034 8.2C16.1 7 17.5 5 17.5 3.5C17.5 2.67 18.17 2 19 2C19.83 2 20.5 2.67 20.5 3.5C20.5 4.6 20.05 5.7 19.27 6.5C19.0105 6.77224 18.8395 7.1084 18.7707 7.46909L19.1346 9Z" fill="currentColor"/>
-                        <path d="M6.44 22H2.5C2.18 22 1.92 21.76 1.9 21.44L1.5 17.56C1.48 17.24 1.74 17 2.06 17H6C6.32 17 6.58 17.24 6.6 17.56L7 21.44C7.02 21.76 6.76 22 6.44 22Z" fill="currentColor"/>
-                        <path d="M16.44 22H12.5C12.18 22 11.92 21.76 11.9 21.44L11.5 17.56C11.48 17.24 11.74 17 12.06 17H16C16.32 17 16.58 17.24 16.6 17.56L17 21.44C17.02 21.76 16.76 22 16.44 22Z" fill="currentColor"/>
-                      </svg>
-                    </div>
-                    
-                    <div className="flex items-center space-x-1 mb-4">
-                      {renderStars(testimonial.rating)}
-                    </div>
-                    
-                    <blockquote className="text-xl text-gray-800 leading-relaxed mb-6">
-                      "{testimonial.quote}"
-                    </blockquote>
-                    
-                    <div className="flex items-center">
-                      <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-brand-red font-bold text-lg">
-                        {testimonial.name.charAt(0)}
-                      </div>
-                      <div className="ml-4">
-                        <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                        <p className="text-gray-500 text-sm">{testimonial.age}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            {/* Navigation buttons */}
-            <div className="flex justify-between items-center mt-6">
-              <button 
-                onClick={prevSlide}
-                className="w-10 h-10 rounded-full flex items-center justify-center bg-white shadow hover:shadow-md transition-shadow border border-gray-200"
-                aria-label="Poprzednia opinia"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 text-gray-800">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              
-              <div className="flex space-x-2">
-                {testimonials.map((_, index) => (
-                  <button 
-                    key={index}
-                    onClick={() => setActiveIndex(index)}
-                    className={`w-2.5 h-2.5 rounded-full transition-colors ${index === activeIndex ? 'bg-brand-red' : 'bg-gray-300'}`}
-                    aria-label={`Przejdź do opinii ${index + 1}`}
-                  />
-                ))}
-              </div>
-              
-              <button 
-                onClick={nextSlide}
-                className="w-10 h-10 rounded-full flex items-center justify-center bg-white shadow hover:shadow-md transition-shadow border border-gray-200"
-                aria-label="Następna opinia"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 text-gray-800">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-          </AnimatedElement>
+        <AnimatedElement animation="fade-in" delay={500} className="max-w-6xl mx-auto mb-16">
+          <Carousel className="w-full" opts={{ align: "start", loop: true }}>
+            <CarouselContent className="-ml-4">
+              {testimonials.map((testimonial) => (
+                <CarouselItem key={testimonial.id} className={`pl-4 ${isMobile ? 'basis-full' : 'basis-1/3'}`}>
+                  <TestimonialCard testimonial={testimonial} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </AnimatedElement>
+        
+        <AnimatedElement animation="fade-in" delay={600} className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Skuteczność EroHorse w liczbach:</h3>
           
-          <AnimatedElement animation="fade-in" delay={600} className="mt-16 bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-8">
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Skuteczność EroHorse w liczbach:</h3>
-                <ul className="space-y-2 text-gray-700">
-                  <li className="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 text-brand-red mr-2">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>95% mężczyzn potwierdza poprawę erekcji</span>
-                  </li>
-                  <li className="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 text-brand-red mr-2">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>89% odczuło zwiększone libido</span>
-                  </li>
-                  <li className="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 text-brand-red mr-2">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>93% deklaruje większą satysfakcję ze współżycia</span>
-                  </li>
-                </ul>
-                <p className="text-sm text-gray-500 mt-2">Na podstawie ankiety wśród pierwszych 100 klientów EroHorse.</p>
-              </div>
-              
-              <div className="w-32 h-32 relative">
-                <svg viewBox="0 0 100 100" className="w-full h-full">
-                  <circle 
-                    cx="50" cy="50" r="45" 
-                    fill="none" 
-                    stroke="#f1f1f1" 
-                    strokeWidth="10"
-                  />
-                  <circle 
-                    cx="50" cy="50" r="45" 
-                    fill="none" 
-                    stroke="#cc0000" 
-                    strokeWidth="10"
-                    strokeDasharray="283"
-                    strokeDashoffset="14" // 283 * (1 - 0.95) for 95% rating
-                    transform="rotate(-90 50 50)"
-                    strokeLinecap="round"
-                  />
-                  <text 
-                    x="50" 
-                    y="55" 
-                    textAnchor="middle" 
-                    fontSize="24"
-                    fontWeight="bold"
-                    fill="#111111"
-                  >
-                    95%
-                  </text>
-                </svg>
-                <div className="absolute -left-2 -top-1 w-10 h-10 bg-red-50 rounded-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 text-brand-red">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {effectivenessStats.map((stat) => (
+              <div key={stat.id} className="flex flex-col items-center">
+                <div className="relative w-32 h-32 mb-4">
+                  <svg viewBox="0 0 100 100" className="w-full h-full">
+                    <circle 
+                      cx="50" cy="50" r="45" 
+                      fill="none" 
+                      stroke="#f1f1f1" 
+                      strokeWidth="10"
+                    />
+                    <circle 
+                      cx="50" cy="50" r="45" 
+                      fill="none" 
+                      stroke="#cc0000" 
+                      strokeWidth="10"
+                      strokeDasharray="283"
+                      strokeDashoffset={`${283 * (1 - stat.percentage / 100)}`}
+                      transform="rotate(-90 50 50)"
+                      strokeLinecap="round"
+                    />
+                    <text 
+                      x="50" 
+                      y="55" 
+                      textAnchor="middle" 
+                      fontSize="24"
+                      fontWeight="bold"
+                      fill="#111111"
+                    >
+                      {stat.percentage}%
+                    </text>
                   </svg>
+                  <div className="absolute -left-2 -top-1 w-10 h-10 bg-red-50 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 text-brand-red">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                    </svg>
+                  </div>
                 </div>
+                <p className="text-center text-gray-700 font-medium">{stat.label}</p>
               </div>
-            </div>
-          </AnimatedElement>
-        </div>
+            ))}
+          </div>
+          
+          <p className="text-sm text-gray-500 mt-6 text-center">Na podstawie ankiety wśród pierwszych 100 klientów EroHorse.</p>
+        </AnimatedElement>
       </div>
     </section>
   );

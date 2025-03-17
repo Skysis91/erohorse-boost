@@ -58,7 +58,7 @@ const HeroSection = () => {
           <div className="relative">
             <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-red-500 to-red-800 opacity-20 blur-xl"></div>
             <img 
-              src="https://images.unsplash.com/photo-1607004684960-ef32722246ec?q=80&w=1000&auto=format&fit=crop" 
+              src="/lovable-uploads/2bbf25e0-ec9d-4844-926b-fa183eef8ee4.png" 
               alt="EroHorse Produkt" 
               className="w-full h-auto object-contain relative rounded-3xl"
               style={{ filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))' }}
@@ -105,6 +105,12 @@ const HeroSection = () => {
           
           <AnimatedElement className="mt-8 flex items-center space-x-2" animation="fade-in" delay={800}>
             <div className="flex -space-x-1">
+              <div className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-xs">
+                ★
+              </div>
+              <div className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-xs">
+                ★
+              </div>
               <div className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-xs">
                 ★
               </div>

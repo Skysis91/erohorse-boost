@@ -52,6 +52,16 @@ const features = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
       </svg>
     )
+  },
+  {
+    id: 6,
+    title: 'Długotrwały efekt',
+    description: 'Jedna dawka EroHorse zapewnia efekt utrzymujący się do 16 godzin, dając Ci spokój i pewność, że będziesz zawsze gotowy na intymne zbliżenie.',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    )
   }
 ];
 

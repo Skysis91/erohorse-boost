@@ -3,6 +3,7 @@ import React from 'react';
 import HeroSection from '@/components/HeroSection';
 import FeatureSection from '@/components/FeatureSection';
 import TestimonialSection from '@/components/TestimonialSection';
+import SocialProofSection from '@/components/SocialProofSection';
 import FaqSection from '@/components/FaqSection';
 import OrderSection from '@/components/OrderSection';
 import { AnimatedElement } from '@/utils/animations';
@@ -18,6 +19,9 @@ const Index = () => {
       
       {/* Testimonial Section */}
       <TestimonialSection />
+      
+      {/* Social Proof Section */}
+      <SocialProofSection />
       
       {/* FAQ Section */}
       <FaqSection />
