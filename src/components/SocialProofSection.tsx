@@ -58,7 +58,7 @@ const SocialProofSection = () => {
             >
               <div className="aspect-[9/16] w-full">
                 <iframe 
-                  src={video.embedUrl} 
+                  src={`${video.embedUrl}?hideSharingOptions=true&hideComments=true&hideReactions=true`} 
                   allowFullScreen 
                   className="w-full h-full"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

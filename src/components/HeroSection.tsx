@@ -52,79 +52,83 @@ const HeroSection = () => {
         }}
       />
       
-      {/* Product image with parallax effect */}
-      <div className="absolute right-[-10%] lg:right-[5%] top-1/2 transform -translate-y-1/2 w-[90%] max-w-md md:max-w-lg lg:max-w-xl opacity-90 hidden sm:block parallax" style={{ transform: 'translateZ(-20px) translateX(calc(var(--move-x, 0) * -0.5)) translateY(calc(var(--move-y, 0) * -0.5))' }}>
-        <AnimatedElement animation="scale-up" delay={300}>
-          <div className="relative">
-            <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-red-500 to-red-800 opacity-20 blur-xl"></div>
-            <img 
-              src="/lovable-uploads/2bbf25e0-ec9d-4844-926b-fa183eef8ee4.png" 
-              alt="EroHorse Produkt" 
-              className="w-full h-auto object-contain relative rounded-3xl"
-              style={{ filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))' }}
-            />
-          </div>
-        </AnimatedElement>
-      </div>
-      
-      {/* Content */}
       <div className="container max-w-7xl mx-auto relative z-10">
-        <div className="max-w-2xl">
-          <div className="mb-6">
-            <AnimatedElement animation="slide-down">
-              <span className="inline-flex items-center rounded-full bg-red-50 px-3 py-1 text-sm font-medium text-red-700 ring-1 ring-inset ring-red-600/20 mb-3">
-                Naturalna moc
-              </span>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          {/* Text Content */}
+          <div className="max-w-2xl">
+            <div className="mb-6">
+              <AnimatedElement animation="slide-down">
+                <span className="inline-flex items-center rounded-full bg-red-50 px-3 py-1 text-sm font-medium text-red-700 ring-1 ring-inset ring-red-600/20 mb-3">
+                  Naturalna moc
+                </span>
+              </AnimatedElement>
+            </div>
+            
+            <AnimatedText element="h1" className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6" animation="slide-up">
+              Pewność siebie w sypialni i maksymalna męska moc
+            </AnimatedText>
+            
+            <AnimatedText element="p" className="text-xl text-gray-300 mb-8 leading-relaxed" animation="fade-in" delay={300}>
+              Naturalny booster potencji, który doda Ci energii, wytrzymałości i rozpali libido do granic możliwości. Poznaj moc 12 naturalnych afrodyzjaków.
+            </AnimatedText>
+            
+            <AnimatedElement animation="fade-in" delay={0}>
+              <div className="mb-6 flex items-center space-x-2">
+                <div className="flex -space-x-1">
+                  <div className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-xs">
+                    ★
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-xs">
+                    ★
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-xs">
+                    ★
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-xs">
+                    ★
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-xs">
+                    ★
+                  </div>
+                </div>
+                <p className="text-sm text-gray-300">
+                  <span className="font-medium text-white">5.0/5.0</span> na podstawie opinii klientów
+                </p>
+              </div>
+            </AnimatedElement>
+            
+            <AnimatedElement animation="fade-in" delay={600}>
+              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <a 
+                  href="#order" 
+                  className="inline-flex h-12 items-center justify-center rounded-md bg-brand-red px-6 text-base font-medium text-white shadow-sm hover:bg-brand-red/90 transition-colors"
+                >
+                  Zamów teraz
+                </a>
+                <a 
+                  href="#benefits" 
+                  className="inline-flex h-12 items-center justify-center rounded-md border border-gray-700 bg-black/30 backdrop-blur-sm px-6 text-base font-medium text-white shadow-sm hover:bg-black/50 transition-colors"
+                >
+                  Dowiedz się więcej
+                </a>
+              </div>
             </AnimatedElement>
           </div>
           
-          <AnimatedText element="h1" className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6" animation="slide-up">
-            Pewność siebie w sypialni i maksymalna męska moc
-          </AnimatedText>
-          
-          <AnimatedText element="p" className="text-xl text-gray-300 mb-8 leading-relaxed" animation="fade-in" delay={300}>
-            Naturalny booster potencji, który doda Ci energii, wytrzymałości i rozpali libido do granic możliwości. Poznaj moc 12 naturalnych afrodyzjaków.
-          </AnimatedText>
-          
-          <AnimatedElement animation="fade-in" delay={600}>
-            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <a 
-                href="#order" 
-                className="inline-flex h-12 items-center justify-center rounded-md bg-brand-red px-6 text-base font-medium text-white shadow-sm hover:bg-brand-red/90 transition-colors"
-              >
-                Zamów teraz
-              </a>
-              <a 
-                href="#benefits" 
-                className="inline-flex h-12 items-center justify-center rounded-md border border-gray-700 bg-black/30 backdrop-blur-sm px-6 text-base font-medium text-white shadow-sm hover:bg-black/50 transition-colors"
-              >
-                Dowiedz się więcej
-              </a>
-            </div>
-          </AnimatedElement>
-          
-          <AnimatedElement className="mt-8 flex items-center space-x-2" animation="fade-in" delay={800}>
-            <div className="flex -space-x-1">
-              <div className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-xs">
-                ★
+          {/* Product Image */}
+          <div className="relative hidden lg:block">
+            <AnimatedElement animation="scale-up" delay={300}>
+              <div className="relative mx-auto max-w-md">
+                <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-red-500 to-red-800 opacity-20 blur-xl"></div>
+                <img 
+                  src="/lovable-uploads/2bbf25e0-ec9d-4844-926b-fa183eef8ee4.png" 
+                  alt="EroHorse Produkt" 
+                  className="w-full h-auto object-contain relative rounded-3xl"
+                  style={{ filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))' }}
+                />
               </div>
-              <div className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-xs">
-                ★
-              </div>
-              <div className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-xs">
-                ★
-              </div>
-              <div className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-xs">
-                ★
-              </div>
-              <div className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-xs">
-                ★
-              </div>
-            </div>
-            <p className="text-sm text-gray-300">
-              <span className="font-medium text-white">5.0/5.0</span> na podstawie opinii klientów
-            </p>
-          </AnimatedElement>
+            </AnimatedElement>
+          </div>
         </div>
       </div>
       
